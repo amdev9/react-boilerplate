@@ -6,12 +6,11 @@ export interface PostsState {
   newAction: Array<string>;
 }
 
- 
 export interface FetchedDataObj {
-  userId: number,
-  id: number,
-  title: string,
-  body: string,
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
 }
 
 const initialState: PostsState = {
@@ -35,20 +34,20 @@ export const counterSlice = createSlice({
       return { ...state, newAction: finalAction };
     },
     getPostsError: (state, action: PayloadAction<Error>) => {
-      return { ...state, status: JSON.stringify(action.payload.message) };
+      return { ...state, status: action.payload.message };
     },
     getPostsStatus: (state, action: PayloadAction<Array<FetchedDataObj>>) => {
-    
-      console.log(action)
+      console.log(action);
       const users = { ...action.payload };
       const items = users;
-    
+
       return { ...state, status: "DONE", items };
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { getPosts, createPost, getPostsStatus, getPostsError } = counterSlice.actions;
+export const { getPosts, createPost, getPostsStatus, getPostsError } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;
