@@ -1,30 +1,54 @@
-import { handleActions } from 'redux-actions'
-import { getPosts, TActionType } from './action'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface IState {
-  status: string,
-  items: Array<any>
+export interface PostsState {
+  status: string;
+  items: Array<any>;
+  newAction: Array<string>;
 }
 
-const DEFAULT_STATE: IState = {
+ 
+export interface FetchedDataObj {
+  userId: number,
+  id: number,
+  title: string,
+  body: string,
+}
+
+const initialState: PostsState = {
   status: "",
   items: [],
-}
+  newAction: ["test"],
+};
 
-export interface IFlattenReducer<State> {
-  (state: State): State;
-}
+export const counterSlice = createSlice({
+  name: "posts",
+  initialState,
+  reducers: {
+    getPosts: (state) => ({ ...state, status: "PENDING" }),
+    createPost: (state, action: PayloadAction<string>) => {
+      let finalAction = [];
+      if (state.newAction !== undefined) {
+        finalAction = [...state.newAction, action.payload];
+      } else {
+        finalAction = [action.payload];
+      }
+      return { ...state, newAction: finalAction };
+    },
+    getPostsError: (state, action: PayloadAction<Error>) => {
+      return { ...state, status: JSON.stringify(action.payload.message) };
+    },
+    getPostsStatus: (state, action: PayloadAction<Array<any>>) => {
+    
+      console.log(action)
+      const users = { ...action.payload };
+      const items = users;
+    
+      return { ...state, status: "DONE", items };
+    },
+  },
+});
 
-export interface IFlattenReducerMap<State> {
-  [actionType: string]: IFlattenReducer<State>;
-}
+// Action creators are generated for each case reducer function
+export const { getPosts, createPost, getPostsStatus, getPostsError } = counterSlice.actions;
 
-const handlers: IFlattenReducerMap<IState> = {
-  [getPosts as any]: (state: IState) => ({ ...state, status: "PENDING" })
-}
-
-
-
-
-
-export default handleActions(handlers, DEFAULT_STATE)
+export default counterSlice.reducer;
