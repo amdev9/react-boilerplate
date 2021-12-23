@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface PostsState {
   status: string;
-  items: Array<any>;
+  items: Array<FetchedDataObj>;
   newAction: Array<string>;
 }
 
@@ -37,7 +37,7 @@ export const counterSlice = createSlice({
     getPostsError: (state, action: PayloadAction<Error>) => {
       return { ...state, status: JSON.stringify(action.payload.message) };
     },
-    getPostsStatus: (state, action: PayloadAction<Array<any>>) => {
+    getPostsStatus: (state, action: PayloadAction<Array<FetchedDataObj>>) => {
     
       console.log(action)
       const users = { ...action.payload };
