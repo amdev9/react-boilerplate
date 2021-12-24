@@ -5,7 +5,7 @@ import PostList from './PostsList'
 const Home = () => {
   return (
     <div>
-      <h1>React ts saga hooks persist memo demo</h1>
+      <h1>React ts saga hooks persist router memo demo</h1>
       <PostList />
     </div>
   );
