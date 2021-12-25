@@ -13,7 +13,7 @@ export interface FetchedDataObj {
   body: string;
 }
 
-const initialState: PostsState = {
+export const initialState: PostsState = {
   status: "",
   items: [],
   newAction: ["test"],
