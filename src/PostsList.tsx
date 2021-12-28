@@ -34,7 +34,7 @@ const PostsList = (props: Props) => {
         type="text"
         value={elementName}
         placeholder="Element name"
-        onChange={(e) => setElementName(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => setElementName(e.target.value)}
       />
       <button onClick={() => fetchDataPosts()}> fetch </button>
       <button
